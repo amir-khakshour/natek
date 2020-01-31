@@ -173,6 +173,13 @@ CUSTOM_MIDDLEWARE_CLASSES.update({
         BASE_MIDDLEWARE_CLASSES['django.contrib.sessions.middleware.SessionMiddleware'] - 1,
 })
 
+# ------------------------------------------#
+# Goods
+# ------------------------------------------#
+INSTALLED_APPS += [
+    'goods',
+]
+
 #  -------------------------------------------#
 # Don't change following section
 # -------------------------------------------#
