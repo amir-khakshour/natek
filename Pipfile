@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "==2.2.9"
 djangorestframework = "*"
+django-environ = "*"
 
 [dev-packages]
 
