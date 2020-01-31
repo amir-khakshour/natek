@@ -14,3 +14,18 @@ def build_component_list(base, custom):
     items = (x for x in six.iteritems(compdict) if x[1] is not None)
     return [x[0] for x in sorted(items, key=itemgetter(1))]
 
+
+class ApiConverter:
+    """
+    Interprets the api version and filters validity.
+    Currently there is only version 1.
+    """
+    regex = 'v[1]'
+
+    @staticmethod
+    def to_python(value):
+        return int(value[1:])
+
+    @staticmethod
+    def to_url(value):
+        return "v{}".format(value)
