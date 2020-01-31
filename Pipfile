@@ -7,8 +7,12 @@ name = "pypi"
 django = "==2.2.9"
 djangorestframework = "*"
 django-environ = "*"
+django-cors-headers = "*"
+djangorestframework-jwt = "*"
 
 [dev-packages]
+pytest = "*"
+django-debug-toolbar = "*"
 
 [requires]
 python_version = "3.5"

@@ -48,15 +48,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+BASE_MIDDLEWARE_CLASSES = {
+    'django.middleware.security.SecurityMiddleware': 100,
+    'django.contrib.sessions.middleware.SessionMiddleware': 200,
+    'django.middleware.common.CommonMiddleware': 300,
+    'django.middleware.csrf.CsrfViewMiddleware': 400,
+    'django.contrib.auth.middleware.AuthenticationMiddleware': 500,
+    'django.contrib.messages.middleware.MessageMiddleware': 600,
+    'django.middleware.clickjacking.XFrameOptionsMiddleware': 700,
+}
+
+CUSTOM_MIDDLEWARE_CLASSES = {}
 
 ROOT_URLCONF = 'config.urls'
 
@@ -123,3 +125,58 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# ------------------------------------------#
+# Debug Toolbar
+# ------------------------------------------#
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+    CUSTOM_MIDDLEWARE_CLASSES.update({
+        'debug_toolbar.middleware.DebugToolbarMiddleware':
+            BASE_MIDDLEWARE_CLASSES['django.contrib.sessions.middleware.SessionMiddleware'] + 10000,
+    })
+    INTERNAL_IPS = [
+        '127.0.0.1',
+    ]
+
+# ------------------------------------------#
+# Rest Framework
+# ------------------------------------------#
+INSTALLED_APPS += (
+    'rest_framework',
+    'rest_framework.authtoken',
+)
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+# ------------------------------------------#
+# corsheaders
+# ------------------------------------------#
+INSTALLED_APPS += [
+    'corsheaders',
+]
+
+# Order : Right after session middleware
+CUSTOM_MIDDLEWARE_CLASSES.update({
+    'corsheaders.middleware.CorsMiddleware':
+        BASE_MIDDLEWARE_CLASSES['django.contrib.sessions.middleware.SessionMiddleware'] - 1,
+})
+
+#  -------------------------------------------#
+# Don't change following section
+# -------------------------------------------#
+from .utils import build_component_list
+
+MIDDLEWARE = build_component_list(BASE_MIDDLEWARE_CLASSES, CUSTOM_MIDDLEWARE_CLASSES)
+# add following lines to the end of settings.py
