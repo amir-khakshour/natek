@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fee53602e0c0db82e2291f6a895e7c5144ffd1d5d7ae71ce6a429d54feb2ffec"
+            "sha256": "bd8fec811fc25e956cf8e9c6219b13593f76008dfe6df366338f9dd1b2ea49f3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -39,6 +39,13 @@
             ],
             "index": "pypi",
             "version": "==0.4.5"
+        },
+        "django-treebeard": {
+            "hashes": [
+                "sha256:83aebc34a9f06de7daaec330d858d1c47887e81be3da77e3541fe7368196dd8a"
+            ],
+            "index": "pypi",
+            "version": "==4.3.1"
         },
         "djangorestframework": {
             "hashes": [
@@ -103,11 +110,11 @@
         },
         "django-debug-toolbar": {
             "hashes": [
-                "sha256:24c157bc6c0e1648e0a6587511ecb1b007a00a354ce716950bff2de12693e7a8",
-                "sha256:77cfba1d6e91b9bc3d36dc7dc74a9bb80be351948db5f880f2562a0cbf20b6c5"
+                "sha256:eabbefe89881bbe4ca7c980ff102e3c35c8e8ad6eb725041f538988f2f39a943",
+                "sha256:ff94725e7aae74b133d0599b9bf89bd4eb8f5d2c964106e61d11750228c8774c"
             ],
             "index": "pypi",
-            "version": "==2.1"
+            "version": "==2.2"
         },
         "importlib-metadata": {
             "hashes": [

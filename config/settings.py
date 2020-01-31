@@ -177,6 +177,7 @@ CUSTOM_MIDDLEWARE_CLASSES.update({
 # Goods
 # ------------------------------------------#
 INSTALLED_APPS += [
+    'treebeard',
     'goods',
 ]
 

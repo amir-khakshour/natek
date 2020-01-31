@@ -9,6 +9,7 @@ djangorestframework = "*"
 django-environ = "*"
 django-cors-headers = "*"
 djangorestframework-jwt = "*"
+django-treebeard = "*"
 
 [dev-packages]
 pytest = "*"
