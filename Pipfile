@@ -12,8 +12,13 @@ djangorestframework-jwt = "*"
 django-treebeard = "*"
 
 [dev-packages]
-pytest = "*"
 django-debug-toolbar = "*"
+pytest-django = "==3.8.0"
+django-webtest = "==1.9.7"
+webtest = "==2.0.34"
+tox = "*"
+coverage = "==5.0.3"
+pytest-xdist = "*"
 
 [requires]
 python_version = "3.5"
