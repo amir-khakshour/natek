@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import get_language
 from django.template.defaultfilters import slugify
+from django.db.models import SlugField
 
 from treebeard.mp_tree import MP_Node
 
@@ -26,6 +26,7 @@ class Category(MP_Node):
     """
     name = models.CharField(_('Name'), max_length=255, db_index=True)
     description = models.TextField(_('Description'), blank=True)
+    slug = SlugField(_('Slug'), max_length=255, db_index=True)
 
     _slug_separator = '/'
     _full_name_separator = ' > '
