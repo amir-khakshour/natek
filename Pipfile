@@ -10,6 +10,7 @@ django-environ = "*"
 django-cors-headers = "*"
 djangorestframework-jwt = "*"
 django-treebeard = "*"
+factory-boy = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

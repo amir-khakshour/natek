@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, register_converter
+from django.urls import path, register_converter, include
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 from .utils import ApiConverter
@@ -14,4 +14,9 @@ urlpatterns = [
 urlpatterns += [
     path('<api:version>/api-token-auth/', obtain_jwt_token),
     path('<api:version>/api-token-refresh/', refresh_jwt_token),
+]
+
+# Goods app
+urlpatterns += [
+    path('<api:version>/goods/', include('goods.api.urls'))
 ]
