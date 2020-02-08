@@ -54,9 +54,11 @@ class APITest(TestCase):
         )
         return True
 
-    def api_call(self, url_name, method, session_id=None, authenticated=False, **data):
+    def api_call(self, url_name, method, session_id=None, authenticated=False, version=None, **data):
+        if version is None:
+            version = 1
         try:
-            url = reverse(url_name)
+            url = reverse(url_name, kwargs={'version': version})
         except NoReverseMatch:
             url = url_name
         method = getattr(self.client, method.lower())
@@ -76,14 +78,14 @@ class APITest(TestCase):
 
         return response
 
-    def get(self, url_name, session_id=None, authenticated=False):
+    def get(self, url_name, session_id=None, authenticated=False, version=None):
         return self.api_call(
-            url_name, "GET", session_id=session_id, authenticated=authenticated
+            url_name, "GET", session_id=session_id, authenticated=authenticated, version=version
         )
 
-    def post(self, url_name, session_id=None, authenticated=False, **data):
+    def post(self, url_name, session_id=None, authenticated=False, version=None, **data):
         return self.api_call(
-            url_name, "POST", session_id=session_id, authenticated=authenticated, **data
+            url_name, "POST", session_id=session_id, authenticated=authenticated, version=version, **data
         )
 
     def put(self, url_name, session_id=None, authenticated=False, **data):

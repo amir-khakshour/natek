@@ -156,7 +156,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ],
 }
 
@@ -179,6 +179,7 @@ CUSTOM_MIDDLEWARE_CLASSES.update({
 INSTALLED_APPS += [
     'treebeard',
     'goods',
+    'django_extensions',
 ]
 
 #  -------------------------------------------#

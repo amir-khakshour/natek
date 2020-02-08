@@ -11,6 +11,7 @@ django-cors-headers = "*"
 djangorestframework-jwt = "*"
 django-treebeard = "*"
 factory-boy = "*"
+django-extensions = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
@@ -19,6 +20,7 @@ WebTest = "==2.0.34"
 tox = "*"
 coverage = "==5.0.3"
 pytest-xdist = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.5"

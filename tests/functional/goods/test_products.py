@@ -10,7 +10,7 @@ class ProductTest(APITest):
 
     def test_product_list(self):
         "Check if we get a list of products with the default attributes"
-        self.response = self.get("product-list")
+        self.response = self.get("api_goods:product-list")
         self.response.assertStatusEqual(200)
         # we should have four products
-        self.assertEqual(len(self.response.body), self.product_list)
+        self.assertEqual(len(self.response.body), self.num_products)

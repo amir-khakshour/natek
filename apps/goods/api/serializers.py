@@ -3,6 +3,10 @@ from goods.models import Product, ProductImage
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(
+        write_only=True, required=False, queryset=Product.objects
+    )
+    
     class Meta:
         model = ProductImage
         fields = '__all__'
@@ -13,5 +17,4 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('date', 'channel', 'country_code', 'os', 'impressions',
-                  'clicks', 'installs', 'spend', 'revenue', 'cpi')
+        fields = '__all__'
