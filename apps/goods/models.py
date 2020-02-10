@@ -2,10 +2,12 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.db.models import SlugField
-
+from django.contrib.auth import get_user_model
 from treebeard.mp_tree import MP_Node
 
 from .managers import CategoryQuerySet
+
+User = get_user_model()
 
 
 class Brand(models.Model):
@@ -102,10 +104,11 @@ class Product(models.Model):
     1. Move price details to another model which also stores additional data, e.g. supplier, stock record and ...
     2. remove model and utilize a hierarchical structure between products like a parent and child
     """
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
     model = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     date_created = models.DateTimeField(
         _("Date created"), auto_now_add=True, db_index=True)
 

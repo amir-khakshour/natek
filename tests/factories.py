@@ -1,7 +1,17 @@
 import factory
 from decimal import Decimal as D
+from django.contrib.auth import get_user_model
 
 from goods.models import Brand, Product, Category, ProductCategory, ProductImage
+
+
+class UserFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = get_user_model()
+
+    first_name = factory.Sequence(lambda n: "User %03d" % n)
+    username = factory.Sequence(lambda n: "user_%d" % n)
+    email = factory.Sequence(lambda n: "user_%d@example.com" % n)
 
 
 class BrandFactory(factory.DjangoModelFactory):
@@ -31,6 +41,7 @@ class ProductFactory(factory.DjangoModelFactory):
     class Meta:
         model = Product
 
+    created_by = factory.SubFactory(UserFactory)
     brand = factory.SubFactory(BrandFactory)
     title = factory.Sequence(lambda n: 'Product %d' % n)
     model = factory.Sequence(lambda n: 'Product Model %d' % n)

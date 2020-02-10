@@ -21,14 +21,16 @@ class APITest(TestCase):
         user.is_staff = True
         user.is_superuser = True
         user.save()
+        self.admin_user = user
 
-        # Create normal user
+        # Create normal staff user
         user = User.objects.create_user(
             username="nobody", email="nobody@nobody.niks", password="nobody"
         )
-        user.is_staff = False
+        user.is_staff = True
         user.is_superuser = False
         user.save()
+        self.staff_user = user
 
         # Create another normal user
         user = User.objects.create_user(
@@ -37,6 +39,7 @@ class APITest(TestCase):
         user.is_staff = False
         user.is_superuser = False
         user.save()
+        self.normal_user = user
 
     def login(self, username, password):
         result = self.client.login(username=username, password=password)
@@ -54,11 +57,14 @@ class APITest(TestCase):
         )
         return True
 
-    def api_call(self, url_name, method, session_id=None, authenticated=False, version=None, **data):
+    def api_call(self, url_name, method, session_id=None, authenticated=False, version=None, url_kwargs=None, data=None):
+        if url_kwargs is None:
+            url_kwargs = {}
         if version is None:
             version = 1
+            url_kwargs.update({'version': version})
         try:
-            url = reverse(url_name, kwargs={'version': version})
+            url = reverse(url_name, kwargs=url_kwargs)
         except NoReverseMatch:
             url = url_name
         method = getattr(self.client, method.lower())
@@ -67,7 +73,6 @@ class APITest(TestCase):
             auth_type = "AUTH" if authenticated else "ANON"
             kwargs["HTTP_SESSION_ID"] = "SID:%s:testserver:%s" % (auth_type, session_id)
 
-        response = None
         if data:
             response = method(url, json.dumps(data), **kwargs)
         else:
@@ -78,33 +83,34 @@ class APITest(TestCase):
 
         return response
 
-    def get(self, url_name, session_id=None, authenticated=False, version=None):
+    def get(self, url_name, session_id=None, authenticated=False, version=None, url_kwargs=None):
         return self.api_call(
-            url_name, "GET", session_id=session_id, authenticated=authenticated, version=version
+            url_name, "GET", session_id=session_id, authenticated=authenticated, version=version, url_kwargs=url_kwargs
         )
 
-    def post(self, url_name, session_id=None, authenticated=False, version=None, **data):
+    def post(self, url_name, session_id=None, authenticated=False, version=None, url_kwargs=None, data=None):
         return self.api_call(
-            url_name, "POST", session_id=session_id, authenticated=authenticated, version=version, **data
+            url_name, "POST", session_id=session_id, authenticated=authenticated, version=version, url_kwargs=url_kwargs, data=data
         )
 
-    def put(self, url_name, session_id=None, authenticated=False, **data):
+    def put(self, url_name, session_id=None, authenticated=False, url_kwargs=None, data=None):
         return self.api_call(
-            url_name, "PUT", session_id=session_id, authenticated=authenticated, **data
+            url_name, "PUT", session_id=session_id, authenticated=authenticated, url_kwargs=url_kwargs, data=data
         )
 
-    def patch(self, url_name, session_id=None, authenticated=False, **data):
+    def patch(self, url_name, session_id=None, authenticated=False, url_kwargs=None, data=None):
         return self.api_call(
             url_name,
             "PATCH",
             session_id=session_id,
             authenticated=authenticated,
-            **data
+            url_kwargs=url_kwargs,
+            data=data
         )
 
-    def delete(self, url_name, session_id=None, authenticated=False):
+    def delete(self, url_name, session_id=None, url_kwargs=None, authenticated=False):
         return self.api_call(
-            url_name, "DELETE", session_id=session_id, authenticated=authenticated
+            url_name, "DELETE", session_id=session_id, authenticated=authenticated, url_kwargs=url_kwargs
         )
 
     def tearDown(self):

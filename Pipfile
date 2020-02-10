@@ -12,6 +12,7 @@ djangorestframework-jwt = "*"
 django-treebeard = "*"
 factory-boy = "*"
 django-extensions = "*"
+mock = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
