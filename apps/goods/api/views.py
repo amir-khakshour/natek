@@ -1,24 +1,16 @@
-import contextlib
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from ..models import Brand, Category, Product
 from ..drf.views import ReadWriteSerializerMixin
+from ..drf.utils import override_serializer
 from .serializers import BrandSerializer, CategorySerializer, ProductReadSerializer, ProductWriteSerializer
 
 
 class BrandViewSet(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
-
-
-@contextlib.contextmanager
-def override_serializer(view, serializer):
-    orig_serializer_class = view.serializer_class
-    view.serializer_class = serializer
-    yield serializer
-    view.serializer_class = orig_serializer_class
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
