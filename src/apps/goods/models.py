@@ -78,12 +78,12 @@ class ProductCategory(models.Model):
     """
     product = models.ForeignKey(
         'goods.Product',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         verbose_name=_("Product"))
 
     category = models.ForeignKey(
         'goods.Category',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         verbose_name=_("Category"))
 
     class Meta:

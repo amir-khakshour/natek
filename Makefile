@@ -2,6 +2,7 @@ VENV = venv
 .PHONY: build
 
 all: setup server
+local_setup: setup src_build src_server
 
 clean:
 	find . -name '*.pyc' -delete
@@ -26,17 +27,17 @@ venv: ## Create a virtual env and install test and production requirements
 	$(VENV)/bin/pip install -e .[test]
 
 setup:
-	pip3 install --user --upgrade pipenv
+	pip3.5 install --user --upgrade pipenv
 	pipenv --version
-	pipenv --python 3.5
-	pipenv install
+	pipenv --python 3.7
+	pipenv install --dev
 	pipenv shell
 
 #############################
 # Sandbox management commands
 #############################
-src: install build_src
-build_src: src_clean src_load_data
+src: install src_build
+src_build: src_clean src_load_data src_statics
 
 src_clean:
 	# Remove media
@@ -50,8 +51,14 @@ src_clean:
 src_load_data:
 	src/manage.py loaddata src/files/fixtures/data.json
 
+src_statics:
+	src/manage.py collectstatic --noinput
+
 src_image:
 	docker build -t nanotek:latest .
+
+src_server:
+	pipenv run src/manage.py runserver 127.0.0.1:8080
 ##################
 # Tests and checks
 ##################
@@ -76,6 +83,3 @@ lint: ## Run flake8 and isort checks
 shell:
 	pipenv shell
 
-server:
-	pipenv run ./manage.py migrate
-	pipenv run ./manage.py runserver 127.0.0.1:8080
