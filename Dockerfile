@@ -18,7 +18,7 @@ RUN make install
 
 USER django
 
-RUN make build_src
+RUN make src_build
 
 WORKDIR /app/src/
 CMD uwsgi --ini uwsgi.ini

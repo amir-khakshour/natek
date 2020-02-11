@@ -38,9 +38,7 @@ curl -X POST "http://127.0.0.1:8080/v1/api-token-auth/" -H "accept: application/
 
 2- Now in order to access protected api urls you must include the Authorization: JWT <your_token> header.
 ```bash
-curl -H "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJyb290IiwiZXhwIjoxNTgxNDE5MTIwLCJlbWFpbCI6ImtoYWtzaG91ci5hbWlyQGdtYWlsLmNvbSJ9.tt80vXCmnzrb9wWjxu6tfBcsZPrLeOpST70XeTtleSU" http://127.0.0.1:8080/protected-url/
-curl -X DELETE "http://127.0.0.1:8080/v1/goods/product/4/" -H "accept: application/json" -H "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJyb290IiwiZXhwIjoxNTgxNDE5NDcxLCJlbWFpbCI6ImtoYWtzaG91ci5hbWlyQGdtYWlsLmNvbSJ9.630sWCt3YI-yUSCgoC0kXeXrjqQu8tRECyehCjDfJHw"
-
-
+curl -H "Authorization: JWT <Token>" http://127.0.0.1:8080/protected-url/
+curl -X DELETE "http://127.0.0.1:8080/v1/goods/product/4/" -H "accept: application/json" -H "Authorization: JWT <Token>"
 ```
 
