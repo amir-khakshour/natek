@@ -20,7 +20,7 @@ class ApiConverter:
     Interprets the api version and filters validity.
     Currently there is only version 1.
     """
-    regex = 'v[1]'
+    regex = 'v[1,2]'
 
     @staticmethod
     def to_python(value):

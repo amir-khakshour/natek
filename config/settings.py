@@ -147,6 +147,7 @@ if DEBUG:
 INSTALLED_APPS += (
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_swagger'
 )
 
 REST_FRAMEWORK = {
@@ -156,9 +157,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ],
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
 # ------------------------------------------#
