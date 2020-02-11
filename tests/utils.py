@@ -57,7 +57,8 @@ class APITest(TestCase):
         )
         return True
 
-    def api_call(self, url_name, method, session_id=None, authenticated=False, version=None, url_kwargs=None, data=None):
+    def api_call(self, url_name, method, session_id=None,
+                 authenticated=False, version=None, url_kwargs=None, data=None):
         if url_kwargs is None:
             url_kwargs = {}
         if version is None:
@@ -90,7 +91,8 @@ class APITest(TestCase):
 
     def post(self, url_name, session_id=None, authenticated=False, version=None, url_kwargs=None, data=None):
         return self.api_call(
-            url_name, "POST", session_id=session_id, authenticated=authenticated, version=version, url_kwargs=url_kwargs, data=data
+            url_name, "POST", session_id=session_id, authenticated=authenticated,
+            version=version, url_kwargs=url_kwargs, data=data
         )
 
     def put(self, url_name, session_id=None, authenticated=False, url_kwargs=None, data=None):

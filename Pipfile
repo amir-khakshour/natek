@@ -13,6 +13,8 @@ django-treebeard = "*"
 factory-boy = "*"
 django-extensions = "*"
 mock = "*"
+isort = "*"
+pytest-cov = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
@@ -22,6 +24,7 @@ tox = "*"
 coverage = "==5.0.3"
 pytest-xdist = "*"
 ipython = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.5"

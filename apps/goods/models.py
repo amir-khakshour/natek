@@ -1,7 +1,7 @@
 from django.db import models
+from django.db.models import SlugField
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
-from django.db.models import SlugField
 from django.contrib.auth import get_user_model
 from treebeard.mp_tree import MP_Node
 

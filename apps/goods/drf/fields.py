@@ -1,4 +1,4 @@
-from rest_framework import serializers, relations
+from rest_framework import serializers
 
 from ..models import Category
 from ..utils import create_from_breadcrumbs

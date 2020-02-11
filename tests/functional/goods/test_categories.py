@@ -1,6 +1,5 @@
-import mock
 from tests.utils import APITest
-from tests.factories import ProductFactory, CategoryFactory
+from tests.factories import CategoryFactory
 from goods.models import Product
 
 

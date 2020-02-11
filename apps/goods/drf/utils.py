@@ -1,5 +1,6 @@
 import contextlib
 
+
 @contextlib.contextmanager
 def override_serializer(view, serializer):
     orig_serializer_class = view.serializer_class

@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.relations import ManyRelatedField
 from django.contrib.auth import get_user_model
 
 from ..models import Category, Brand, Product, ProductImage

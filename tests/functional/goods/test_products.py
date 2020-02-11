@@ -1,8 +1,6 @@
-import mock
 from tests.utils import APITest
 from tests.factories import ProductFactory
-from goods.api.serializers import ProductReadSerializer, ProductWriteSerializer, ProductTestSerializer
-from django.test.client import RequestFactory
+from goods.api.serializers import ProductReadSerializer, ProductWriteSerializer
 
 
 class ProductTest(APITest):

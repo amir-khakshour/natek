@@ -40,14 +40,11 @@ retest: venv ## Run failed tests only
 	$(PYTEST) --lf
 
 coverage: venv ## Generate coverage report
-	$(PYTEST) --cov=apps --cov-report=term-missing
+	$(PYTEST) --cov=apps
 
 lint: ## Run flake8 and isort checks
 	flake8 apps/
 	flake8 tests/
 	isort -c -q --recursive --diff apps/
 	isort -c -q --recursive --diff tests/
-
-test_migrations: install-migrations-testing-requirements ## Tests migrations
-	cd sandbox && ./test_migrations.sh
 

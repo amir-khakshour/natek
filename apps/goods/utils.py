@@ -14,9 +14,7 @@ def create_from_sequence(bits):
         except Category.DoesNotExist:
             root = Category.add_root(name=name)
         except Category.MultipleObjectsReturned:
-            raise ValueError((
-                                 "There are more than one categories with name "
-                                 "%s at depth=1") % name)
+            raise ValueError("There are more than one categories with name %s at depth=1" % name)
         return [root]
     else:
         parents = create_from_sequence(bits[:-1])
@@ -26,9 +24,8 @@ def create_from_sequence(bits):
         except Category.DoesNotExist:
             child = parent.add_child(name=name)
         except Category.MultipleObjectsReturned:
-            raise ValueError((
-                                 "There are more than one categories with name "
-                                 "%s which are children of %s") % (name, parent))
+            raise ValueError("There are more than one categories with name "
+                             "%s which are children of %s" % (name, parent))
         parents.append(child)
         return parents
 
