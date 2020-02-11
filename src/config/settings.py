@@ -17,6 +17,9 @@ import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APPS_DIR = os.path.join(BASE_DIR, 'apps')
+BSAE_FILES_PATH = os.path.join(BASE_DIR, 'files')
+STATIC_ROOT = os.path.join(BSAE_FILES_PATH, 'static')
+MEDIA_ROOT = os.path.join(BSAE_FILES_PATH, 'media')
 sys.path.insert(2, APPS_DIR)
 
 env = environ.Env(DEBUG=(bool, False), )  # set default values and casting
