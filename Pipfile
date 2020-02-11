@@ -17,6 +17,7 @@ isort = "*"
 pytest-cov = "*"
 django-rest-swagger = "*"
 coreapi = "*"
+uwsgi = "==2.0.18"
 
 [dev-packages]
 django-debug-toolbar = "*"

@@ -10,26 +10,48 @@ clean:
 	rm -Rf dist/
 	rm -Rf build/
 
+##################
+# Install commands
+##################
+install: install-python install-test ## Install requirements for local development and production
+
+install-python: ## Install python requirements
+	pip install -r requirements.txt
+
+install-test: ## Install test requirements
+	pip install -e .[test]
+
+venv: ## Create a virtual env and install test and production requirements
+	$(shell which python3) -m venv $(VENV)
+	$(VENV)/bin/pip install -e .[test]
+
 setup:
-	sudo apt install python3.5 python3-pip
-	sudo pip3.5 install --user --upgrade pipenv
+	pip3 install --user --upgrade pipenv
 	pipenv --version
 	pipenv --python 3.5
 	pipenv install
 	pipenv shell
 
-shell:
-	pipenv shell
+#############################
+# Sandbox management commands
+#############################
+src: install build_src
+build_src: src_clean src_load_data
 
-server:
-	pipenv run ./manage.py migrate
-	pipenv run ./manage.py runserver 127.0.0.1:8080
+src_clean:
+	# Remove media
+	-rm -rf src/files/media/images
+	-rm -rf src/files/media/cache
+	-rm -rf src/files/static
+	-rm -f src/db.sqlite
+	# Create database
+	src/manage.py migrate
 
-venv: ## Create a virtual env and install test and production requirements
-	$(shell which python3) -m venv $(VENV)
-	$(VENV)/bin/pip3 install -e .[test]
-	$(VENV)/bin/pip3 install -r docs/requirements.txt
+src_load_data:
+	src/manage.py loaddata src/files/fixtures/data.json
 
+src_image:
+	docker build -t nanotek:latest .
 ##################
 # Tests and checks
 ##################
@@ -48,3 +70,12 @@ lint: ## Run flake8 and isort checks
 	isort -c -q --recursive --diff apps/
 	isort -c -q --recursive --diff tests/
 
+##################
+# Misc
+##################
+shell:
+	pipenv shell
+
+server:
+	pipenv run ./manage.py migrate
+	pipenv run ./manage.py runserver 127.0.0.1:8080
