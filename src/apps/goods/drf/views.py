@@ -1,3 +1,6 @@
+from .utils import as_tuple
+
+
 class ReadWriteSerializerMixin(object):
     """
     Overrides get_serializer_class to choose the read serializer
@@ -29,3 +32,40 @@ class ReadWriteSerializerMixin(object):
              % self.__class__.__name__
              )
         return self.write_serializer_class
+
+
+class PermissionViewMixin(object):
+    default_mapping = {
+        'get': 'retrieve',
+        'post': 'create',
+        'put': 'update',
+        'patch': 'partial_update',
+        'delete': 'destroy',
+        'options': 'options',
+    }
+    _header_data = {}
+    _objects = {}
+
+    @as_tuple
+    def get_permissions(self):
+        """
+        Instantiates and returns the list of permissions that this view requires.
+        """
+        for permcls in self.permission_classes:
+            instance = permcls(request=self.request, view=self)
+            yield instance
+
+    def get_permission_object(self, request):
+        return None
+
+    def check_permissions(self, request, action: str = None, obj=None):
+        obj = obj if obj else self.get_permission_object(request)
+        if action is None:
+            if request.method.lower() in self.action_map:
+                action = self.action_map[request.method.lower()]
+            else:
+                action = self.default_mapping[request.method.lower()]
+        for permission in self.get_permissions():
+            if not permission.has_permission(action=action, obj=obj):
+                self.permission_denied(request)
+

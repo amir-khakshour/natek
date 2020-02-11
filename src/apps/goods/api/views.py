@@ -3,9 +3,10 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from ..models import Brand, Category, Product
-from ..drf.views import ReadWriteSerializerMixin
+from ..drf.views import ReadWriteSerializerMixin, PermissionViewMixin
 from ..drf.utils import override_serializer
 from .serializers import BrandSerializer, CategorySerializer, ProductReadSerializer, ProductWriteSerializer
+from . import permissions
 
 
 class BrandViewSet(viewsets.ModelViewSet):
@@ -30,10 +31,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class ProductViewSet(ReadWriteSerializerMixin, viewsets.ModelViewSet):
+class ProductViewSet(ReadWriteSerializerMixin, PermissionViewMixin, viewsets.ModelViewSet):
     queryset = Product.objects.all()
     read_serializer_class = ProductReadSerializer
     write_serializer_class = ProductWriteSerializer
+    permission_classes = (permissions.ProductPermissions,)
 
     def perform_create(self, serializer):
         """
