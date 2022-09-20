@@ -70,7 +70,7 @@ toml==0.10.0
 tox==3.14.3
 traitlets==4.3.3
 uritemplate==3.0.1
-urllib3==1.25.8
+urllib3==1.26.5
 uWSGI==2.0.18
 virtualenv==20.0.0
 waitress==1.4.3
